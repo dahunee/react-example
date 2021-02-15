@@ -10,6 +10,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.14.0",
     "react-headroom": "^3.1.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-scroll": "^1.8.1"
   },

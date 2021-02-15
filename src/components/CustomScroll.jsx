@@ -10,7 +10,6 @@ function CustomScroll() {
     let beforeTop = 0;
 
     useEffect(() => {
-        console.log('rootRef', rootRef);
         // 현재 화면의 높이를 구한다.
         setClientHeight(scrollbarRef.current.getClientHeight());
     }, [rootRef]);
