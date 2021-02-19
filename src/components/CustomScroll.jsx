@@ -10,6 +10,7 @@ function CustomScroll() {
     let beforeTop = 0;
 
     useEffect(() => {
+        console.log(scrollbarRef.current.getClientHeight());
         // 현재 화면의 높이를 구한다.
         setClientHeight(scrollbarRef.current.getClientHeight());
     }, [rootRef]);
@@ -19,17 +20,18 @@ function CustomScroll() {
     }
 
     const handleScrollStop = () => {
-        if (Math.ceil(currentTop) !== beforeTop) {
+        const div = beforeTop ? beforeTop : 1;
+        if (Math.abs(Math.ceil(currentTop) - div) > 10) {
             let newTop = 0;
 
             if (currentTop > beforeTop) {
                 // 스크롤 내린 경우(올림)
                 newTop = clientHeight * Math.ceil(currentTop / clientHeight);
-                console.log('(올림) newTop > ', newTop);
+                console.log('(스크롤내린경우) newTop > ', newTop);
             } else {
                 // 스크롤 올린경우(내림)
                 newTop = clientHeight * Math.floor(currentTop / clientHeight);
-                console.log('(내림) newTop > ', newTop);
+                console.log('(스크롤올린경우) newTop > ', newTop);
             }
             scrollbarRef.current.scrollTop(newTop);
             beforeTop = newTop;
@@ -40,22 +42,22 @@ function CustomScroll() {
         <div ref={rootRef}>
             <div style={{ height: 50, lineHeight: '48px', fontSize: '1.5rem', paddingLeft: 10, color: 'black' }}>
                 Header
-      </div>
+            </div>
             <Scrollbars
                 ref={scrollbarRef}
-                style={{ width: 500, height: 730 }}
+                style={{ width: '100%', height: 730 }}
                 onScroll={handleScroll}
                 onScrollStop={handleScrollStop}
             >
                 <div style={{ backgroundColor: 'green', height: '100%', color: 'white', fontSize: '2rem' }}>
                     Some great content...
-        </div>
+                </div>
                 <div style={{ backgroundColor: 'gray', height: '100%', color: 'white', fontSize: '2rem' }}>
                     Some great content...
-        </div>
+                </div>
                 <div style={{ backgroundColor: 'lightblue', height: '100%', color: 'white', fontSize: '2rem' }}>
                     Some great content...
-        </div>
+                </div>
             </Scrollbars>
         </div>
     );
